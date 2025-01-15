@@ -1,0 +1,54 @@
+version: '3.3'
+
+services:
+  app:
+    build: .
+    container_name: ip-cache-service
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+      - redis
+    env_file:
+      - .env
+    environment:
+      MONGO_URI: mongodb://mongo:27017/${MONGO_DB_NAME}
+      REDIS_URI: redis://redis:6379
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:6.0
+    container_name: mongo-db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DB_NAME}
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5  
+
+  redis:
+    image: redis:7.0
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+  redis-data:
+
+networks:
+  app-network:
