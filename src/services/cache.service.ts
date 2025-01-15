@@ -15,9 +15,12 @@ export class CacheService {
         await this.fastify.redis.client.set(key, value);
       }
 
-      this.fastify.log.info(`CacheService: set: ip : ${key}`)
+      this.fastify.log.info(`CacheService: set: ip : ${key}`);
     } catch (error) {
-      this.fastify.log.error(`Failed to set cache for key "${key}":`, error.message);
+      this.fastify.log.error(
+        `Failed to set cache for key "${key}":`,
+        error.message
+      );
       throw error;
     }
   }
@@ -26,7 +29,10 @@ export class CacheService {
     try {
       return await this.fastify.redis.client.get(key);
     } catch (error) {
-      this.fastify.log.error(`Failed to get cache for key "${key}":`, error.message);
+      this.fastify.log.error(
+        `Failed to get cache for key "${key}":`,
+        error.message
+      );
       throw error;
     }
   }
@@ -35,7 +41,10 @@ export class CacheService {
     try {
       await this.fastify.redis.client.del(key);
     } catch (error) {
-      this.fastify.log.error(`Failed to delete cache for key "${key}":`, error.message);
+      this.fastify.log.error(
+        `Failed to delete cache for key "${key}":`,
+        error.message
+      );
       throw error;
     }
   }

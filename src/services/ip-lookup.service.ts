@@ -1,7 +1,7 @@
 import { CacheService } from './cache.service';
 import { IpDatabaseService } from './ip-database.service';
 import { IPWhoisService } from './ipwhois.service';
-import { CacheRefreshJob } from './../jobs/cache-refresh.job'
+import { CacheRefreshJob } from './../jobs/cache-refresh.job';
 import { IpInfo } from '../models/ip.model';
 import { CustomFastifyInstance } from './../interfaces';
 
@@ -11,9 +11,7 @@ export class IPLookupService {
   private ipDatabaseService: IpDatabaseService;
   private ipWhoisService: IPWhoisService;
 
-  constructor(
-    fastify: CustomFastifyInstance
-  ) {
+  constructor(fastify: CustomFastifyInstance) {
     this.fastify = fastify;
     this.cacheService = new CacheService(fastify);
     this.ipDatabaseService = new IpDatabaseService(fastify);
@@ -22,7 +20,9 @@ export class IPLookupService {
 
   async lookupIP(ip: string): Promise<IpInfo> {
     try {
-      const { config: { CACHE_TTL: ttl } } = this.fastify || {};
+      const {
+        config: { CACHE_TTL: ttl },
+      } = this.fastify || {};
 
       const cachedData = await this.cacheService.get(ip);
       if (cachedData) {
@@ -41,7 +41,7 @@ export class IPLookupService {
       await this.cacheService.set(ip, JSON.stringify(savedData), ttl);
       await CacheRefreshJob.addJob(ip);
 
-      this.fastify.log.info(`ip cached: ${ip}`)
+      this.fastify.log.info(`ip cached: ${ip}`);
 
       return savedData;
     } catch (err) {
@@ -54,7 +54,7 @@ export class IPLookupService {
     try {
       await this.cacheService.delete(ip);
       await CacheRefreshJob.removeJob(ip);
-      this.fastify.log.info(`ip deleted: ${ip}`)
+      this.fastify.log.info(`ip deleted: ${ip}`);
     } catch (err) {
       this.fastify.log.error(err);
     }

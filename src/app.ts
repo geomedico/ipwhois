@@ -10,15 +10,22 @@ import ipRoutes from './routes/ip.route';
 
 const envSchema = {
   type: 'object',
-  required: ['MONGO_PASSWORD', 'MONGO_USER', 'MONGO_DB_NAME', 'REDIS_URI', 'PORT', 'CACHE_TTL'],
+  required: [
+    'MONGO_PASSWORD',
+    'MONGO_USER',
+    'MONGO_DB_NAME',
+    'REDIS_URI',
+    'PORT',
+    'CACHE_TTL',
+  ],
   properties: {
     PORT: { type: 'integer', default: 3000 },
-    CACHE_TTL:  { type: 'integer', default: 60 },
+    CACHE_TTL: { type: 'integer', default: 60 },
     MONGO_USER: { type: 'string' },
     MONGO_DB_NAME: { type: 'string' },
     MONGO_PASSWORD: { type: 'string' },
     REDIS_URI: { type: 'string' },
-  }
+  },
 };
 
 const envOptions = {
@@ -26,7 +33,7 @@ const envOptions = {
   schema: envSchema,
   dotenv: {
     path: path.join(__dirname, '../', '.env'),
-  }
+  },
 };
 
 const fastify = Fastify({ logger: true }) as unknown as CustomFastifyInstance;
@@ -49,7 +56,6 @@ const app = {
 
         isInitialized = true;
         console.log(`Server is running at http://localhost:${PORT}`);
-        
       } catch (err) {
         fastify.log.error(err);
         process.exit(1);

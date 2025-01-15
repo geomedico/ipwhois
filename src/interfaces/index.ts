@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 import Redis from 'ioredis';
+
 import { IpModel } from './../models/ip.model';
 
 interface RedisInstance {
@@ -7,7 +8,7 @@ interface RedisInstance {
 }
 export interface CustomFastifyInstance extends FastifyInstance {
   redis: RedisInstance;
-  db: { models: { Ip: typeof IpModel; } }
+  db: { models: { Ip: typeof IpModel } };
   config: {
     PORT: number;
     CACHE_TTL: number;
@@ -31,7 +32,7 @@ export interface IModels {
 }
 
 export interface IResOutPut {
-   status: number;
-   message?: string;
-   data?: Record<string, any>;
+  status: number;
+  message?: string;
+  data?: Record<string, any>;
 }

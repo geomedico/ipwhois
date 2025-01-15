@@ -28,15 +28,15 @@ export interface IpInfo extends Document {
 const IpSchema: Schema<IpInfo> = new Schema(
   {
     ip: {
-      type: String, 
+      type: String,
       required: true,
       index: true,
-      unique: true
+      unique: true,
     },
     success: { type: Boolean, required: true },
     type: { type: String, required: true },
     continent_code: { type: String, required: true },
-    country: { type: String, required: true, index: true, },
+    country: { type: String, required: true, index: true },
     country_code: { type: String, required: true },
     country_flag: { type: String, required: true },
     country_capital: { type: String, required: true },
@@ -49,8 +49,8 @@ const IpSchema: Schema<IpInfo> = new Schema(
     asn: { type: String, required: true, index: true },
     org: { type: String },
     isp: { type: String },
-    timezone: { type: String},
-    currency: { type: String, index: true, },
+    timezone: { type: String },
+    currency: { type: String, index: true },
     currency_code: { type: String },
   },
   {
@@ -58,4 +58,7 @@ const IpSchema: Schema<IpInfo> = new Schema(
   }
 );
 
-export const IpModel: Model<IpInfo> = mongoose.model<IpInfo>('IpInfo', IpSchema);
+export const IpModel: Model<IpInfo> = mongoose.model<IpInfo>(
+  'IpInfo',
+  IpSchema
+);

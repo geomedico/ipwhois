@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export class IPWhoisService {
-  constructor(){}
+  constructor() {}
   /**
    * Fetch IP data from the external IPWhois service.
    * @param ip - The IP address to fetch data for.

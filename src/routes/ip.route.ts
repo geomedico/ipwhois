@@ -12,7 +12,6 @@ const paramSchema = {
 };
 
 export default async function ipRoutes(fastify: any) {
-
   const ipRoute = new IPLookupController(fastify as CustomFastifyInstance);
   // Ip Routes
   fastify.post(
@@ -25,8 +24,8 @@ export default async function ipRoutes(fastify: any) {
     { schema: { params: paramSchema } },
     ipRoute.deleteByIP.bind(ipRoute)
   );
-  
-  fastify.get('/health', ( request: FastifyRequest, reply: FastifyReply)  => {
+
+  fastify.get('/health', (_request: FastifyRequest, reply: FastifyReply) => {
     reply.code(200).send({ status: 'OK' });
   });
 }

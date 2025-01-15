@@ -4,7 +4,9 @@ import type { FastifyInstance, FastifyPluginAsync } from 'fastify';
 import { IpModel } from './../models/ip.model';
 import { CustomFastifyInstance, Models, IModels } from './../interfaces';
 
-const connectToDb: FastifyPluginAsync = async (fastify: FastifyInstance): Promise<void> => {
+const connectToDb: FastifyPluginAsync = async (
+  fastify: FastifyInstance
+): Promise<void> => {
   const {
     config: { MONGO_USER, MONGO_DB_NAME, MONGO_PASSWORD },
   } = fastify as unknown as CustomFastifyInstance;
