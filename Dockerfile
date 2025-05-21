@@ -1,5 +1,6 @@
 FROM node:20.17-slim
-RUN corepack enable && corepack prepare pnpm@latest --activate
+
+RUN npm install -g pnpm@9.10.0
 
 WORKDIR /usr/src/app
 
